@@ -1,67 +1,181 @@
 import pygame
 from pygame.draw import *
 
+# Useful colors
+red = (255, 0, 0)
+green = (0, 255, 0)
+light_green = (0, 129, 0)
+black = (0, 0, 0)
+blue = (50, 255, 255)
+white = (255, 255, 255)
+grey = (230, 230, 230)
+yellow = (255, 222, 84)
+pink1 = (234, 177, 176)
+pink2 = (222, 177, 234)
+pink3 = (255, 239, 171)
+pink4 = (244, 216, 228)
+pink5 = (176, 234, 222)
+pink6 = (214, 177, 176)
+eye = (230, 129, 171)
+fruity = (255, 205, 171)
+
 pygame.init()
-
-
 FPS = 30
 screen = pygame.display.set_mode((600, 1000))
 
-rect(screen, (0, 255, 255), (0, 0, 600, 450))
-rect(screen, (0, 255, 0), (0, 450, 600, 550))
 
-circle(screen, (255, 222, 84), (550, 200), 120)
+def end():
+    """
+    End of drawing
+    :return: None
+    """
+    pygame.display.update()
+    clock = pygame.time.Clock()
+    finished = False
 
-rect(screen, (231, 231, 231), (70, 565, 30, 150))
-ellipse(screen, (0, 129, 0), (25, 490, 120, 80))
-ellipse(screen, (0, 129, 0), (-15, 425, 200, 85))
-ellipse(screen, (0, 129, 0), (20, 320, 130, 145))
-circle(screen, (255, 205, 171), (10, 468), 13)
-circle(screen, (255, 205, 171), (170, 468), 13)
-circle(screen, (255, 205, 171), (125, 378), 13)
-circle(screen, (255, 205, 171), (133, 542), 13)
+    while not finished:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                finished = True
+
+    pygame.quit()
 
 
-ellipse(screen, (255, 255, 255), (270, 600, 200, 100))
-rect(screen, (255, 255, 255), (290, 680, 20, 90))
-rect(screen, (255, 255, 255), (325, 680, 20, 80))
-rect(screen, (255, 255, 255), (400, 680, 20, 90))
-rect(screen, (255, 255, 255), (430, 680, 20, 80))
+def draw_bg(scale=1.):
+    """
+    Drawing of the background
+    :param scale: resize param
+    :return: None
+    """
+    h = scale * 450
+    rect(screen, blue, (0, 0, 600, h))
+    rect(screen, green, (0, h, 600, 1000 - h))
 
-ellipse(screen, (255, 255, 255), (400, 510, 70, 165))
-ellipse(screen, (255, 255, 255), (430, 505, 85, 43))
-circle(screen, (230, 129, 171), (460, 520), 9)
-circle(screen, (0, 0, 0), (458, 518), 4)
-polygon(screen, (234, 177, 176), ([425, 513], [435, 405], [445, 513]))
 
-ellipse(screen, (222, 177, 234), (385, 510, 65, 20))
-ellipse(screen, (222, 177, 234), (383, 512, 65, 20))
-ellipse(screen, (255, 239, 171), (382, 525, 60, 18))
-ellipse(screen, (255, 239, 171), (362, 565, 55, 23))
-ellipse(screen, (244, 216, 228), (372, 545, 52, 23))
-ellipse(screen, (176, 234, 222), (350, 575, 52, 23))
-ellipse(screen, (234, 177, 176), (350, 585, 55, 20))
-ellipse(screen, (234, 177, 176), (380, 535, 60, 23))
+def draw_sun(coords=(0, 0), scale=1.):
+    """
+    Drawing the sun
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    x0, y0 = coords
+    circle(screen, yellow, (x0 + scale * 550, y0 + scale * 200), 120 * scale)
 
-ellipse(screen, (234, 177, 176), (255, 615, 60, 23))
-ellipse(screen, (214, 177, 176), (245, 620, 55, 20))
-ellipse(screen, (255, 239, 171), (200, 670, 63, 30))
-ellipse(screen, (222, 177, 234), (235, 650, 65, 20))
-ellipse(screen, (255, 239, 171), (240, 660, 60, 18))
-ellipse(screen, (255, 239, 171), (235, 627, 55, 23))
-ellipse(screen, (244, 216, 228), (210, 640, 62, 33))
-ellipse(screen, (176, 234, 222), (235, 670, 32, 23))
-ellipse(screen, (200, 177, 176), (240, 680, 60, 23))
-ellipse(screen, (176, 234, 222), (245, 670, 55, 23))
 
-pygame.display.update()
-clock = pygame.time.Clock()
-finished = False
+def draw_tree(coords=(0, 0), scale=1.):
+    """
+    Drawing the tree
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    x0, y0 = coords
+    rect(screen, grey, (x0 + scale * 70, y0 + scale * 565, 30 * scale, 150 * scale))
+    ellipse(screen, light_green, (x0 + scale * 25, y0 + scale * 490, 120 * scale, 80 * scale))
+    ellipse(screen, light_green, (x0 + scale * -15, y0 + scale * 425, 200 * scale, 85 * scale))
+    ellipse(screen, light_green, (x0 + scale * 20, y0 + scale * 320, 130 * scale, 145 * scale))
+    circle(screen, fruity, (x0 + scale * 10, y0 + scale * 468), 13 * scale)
+    circle(screen, fruity, (x0 + scale * 170, y0 + scale * 468), 13 * scale)
+    circle(screen, fruity, (x0 + scale * 125, y0 + scale * 378), 13 * scale)
+    circle(screen, fruity, (x0 + scale * 133, y0 + scale * 542), 13 * scale)
 
-while not finished:
-    clock.tick(FPS)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            finished = True
 
-pygame.quit()
+def draw_unicorn_body(coords=(0, 0), scale=1.):
+    """
+    Drawing body
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    x0, y0 = coords
+    ellipse(screen, white, (x0 + scale * 270, y0 + scale * 600, scale * 200, scale * 100))
+    rect(screen, white, (x0 + scale * 290, y0 + scale * 680, scale * 20, scale * 90))
+    rect(screen, white, (x0 + scale * 325, y0 + scale * 680, scale * 20, scale * 80))
+    rect(screen, white, (x0 + scale * 400, y0 + scale * 680, scale * 20, scale * 90))
+    rect(screen, white, (x0 + scale * 430, y0 + scale * 680, scale * 20, scale * 80))
+
+
+def draw_unicorn_head(coords=(0, 0), scale=1.):
+    """
+    Drawing head
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    x0, y0 = coords
+    ellipse(screen, white, (x0 + scale * 400, y0 + scale * 510, scale * 70, scale * 165))
+    ellipse(screen, white, (x0 + scale * 430, y0 + scale * 505, scale * 85, scale * 43))
+    circle(screen, eye, (x0 + scale * 460, y0 + scale * 520), scale * 9)
+    circle(screen, black, (x0 + scale * 458, y0 + scale * 518), scale * 4)
+    polygon(screen, pink1, (
+    [x0 + scale * 425, y0 + scale * 513], [x0 + scale * 435, y0 + scale * 405], [x0 + scale * 445, y0 + scale * 513]))
+
+
+def draw_unicorn_hair(coords=(0, 0), scale=1.):
+    """
+        Drawing hair
+        :param coords: position of the top left corner of the pic
+        :param scale: resize param
+        :return: None
+        """
+    x0, y0 = coords
+    ellipse(screen, pink2, (x0 + scale * 385, y0 + scale * 510, scale * 65, scale * 20))
+    ellipse(screen, pink2, (x0 + scale * 383, y0 + scale * 512, scale * 65, scale * 20))
+    ellipse(screen, pink3, (x0 + scale * 382, y0 + scale * 525, scale * 60, scale * 18))
+    ellipse(screen, pink3, (x0 + scale * 362, y0 + scale * 565, scale * 55, scale * 23))
+    ellipse(screen, pink4, (x0 + scale * 372, y0 + scale * 545, scale * 52, scale * 23))
+    ellipse(screen, pink5, (x0 + scale * 350, y0 + scale * 575, scale * 52, scale * 23))
+    ellipse(screen, pink1, (x0 + scale * 350, y0 + scale * 585, scale * 55, scale * 20))
+    ellipse(screen, pink1, (x0 + scale * 380, y0 + scale * 535, scale * 60, scale * 23))
+
+
+def draw_unicorn_tail(coords=(0, 0), scale=1.):
+    """
+    Drawing tail
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    x0, y0 = coords
+    ellipse(screen, pink1, (x0 + scale * 255, y0 + scale * 615, scale * 60, scale * 23))
+    ellipse(screen, pink6, (x0 + scale * 245, y0 + scale * 620, scale * 55, scale * 20))
+    ellipse(screen, pink3, (x0 + scale * 200, y0 + scale * 670, scale * 63, scale * 30))
+    ellipse(screen, pink2, (x0 + scale * 235, y0 + scale * 650, scale * 65, scale * 20))
+    ellipse(screen, pink3, (x0 + scale * 240, y0 + scale * 660, scale * 60, scale * 18))
+    ellipse(screen, pink3, (x0 + scale * 235, y0 + scale * 627, scale * 55, scale * 23))
+    ellipse(screen, pink4, (x0 + scale * 210, y0 + scale * 640, scale * 62, scale * 33))
+    ellipse(screen, pink5, (x0 + scale * 235, y0 + scale * 670, scale * 32, scale * 23))
+    ellipse(screen, pink6, (x0 + scale * 240, y0 + scale * 680, scale * 60, scale * 23))
+    ellipse(screen, pink5, (x0 + scale * 245, y0 + scale * 670, scale * 55, scale * 23))
+
+
+def draw_unicorn(coords=(0, 0), scale=1.):
+    """
+    Drawing the f*king unicorn waifu
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    draw_unicorn_body(coords=coords, scale=scale)
+    draw_unicorn_head(coords=coords, scale=scale)
+    draw_unicorn_hair(coords=coords, scale=scale)
+    draw_unicorn_tail(coords=coords, scale=scale)
+
+
+def draw_pic(coords=(0, 0), scale=1.):
+    """
+    Drawing the picture
+    :param coords: position of the top left corner of the pic
+    :param scale: resize param
+    :return: None
+    """
+    draw_bg(scale=scale)
+    draw_sun(coords=coords, scale=scale)
+    draw_tree(coords=coords, scale=scale)
+    draw_unicorn(coords=coords, scale=scale)
+    end()
+
+
+draw_pic()
