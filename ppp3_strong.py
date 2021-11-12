@@ -33,7 +33,7 @@ def load_png(file_path):
     return flow.astype(np.float32)
 
 
-path = "C:\Root\Downloads\Arts\Stuff\pic_1.png"
+path = 'Path'
 img = load_png(path)
 print(img.shape)
 
